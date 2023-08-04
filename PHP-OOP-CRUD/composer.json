@@ -1,0 +1,15 @@
+{
+    "name": "khadija/php-oop-crud",
+    "autoload": {
+        "psr-4": {
+            "PhpOopCrud\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Khadija-Banu",
+            "email": "sweetytanha63@gmail.com"
+        }
+    ],
+    "require": {}
+}
