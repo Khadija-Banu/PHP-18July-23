@@ -9,6 +9,10 @@ if($_SESSION['is_login']){
 else
     header('Location:Log-in.php');
 
+    if($_SESSION['session_msg']){
+        echo $_SESSION['session_msg'];
+        unset($_SESSION['session_msg']);
+    }
 $sql="select * from posts";
 $statement= $pdo->query($sql);
 $posts=$statement->fetchAll(PDO::FETCH_ASSOC);
@@ -47,8 +51,10 @@ $posts=$statement->fetchAll(PDO::FETCH_ASSOC);
             <td><?= $post['title']?></td>
             <td><?= $post['description']?></td>
             <td>
-                <button type="submit" class="btn btn-sm btn-success">Edit</button>
-                <button type="submit" class="btn btn-sm btn-warning">Delete</button>
+                <a href="edit_post.php?post_id=<?= $post['id'] ?>" class="btn btn-sm btn-success">Edit</a>
+            
+                <a href="delete_post.php?post_id=<?= $post['id'] ?>" class="btn btn-sm btn-warning">Delete</a>
+               
             </td>
         </tr>
         <?php endforeach;?>

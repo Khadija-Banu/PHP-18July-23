@@ -11,19 +11,22 @@ header('Location:Log-in.php');
 
 }
     
+$postId=$_GET['post_id'];
+$sql="select * from posts where id=$postId";
+$statement= $pdo->query($sql);
+$post=$statement->fetch(PDO::FETCH_ASSOC);
 
   
 if($_SERVER['REQUEST_METHOD']=='POST'){
     $title=$_POST['title'];
     $description=$_POST['description'];
 
-    var_dump($post);
-    $sql="insert into posts(title,description)values('$title','$description')";
-    var_dump($sql);
+    $sql="update posts set title='$title' , description='$description' where id='$postId'";
+
     $statement=$pdo->prepare($sql);
     $statement->execute();
 
-    $_SESSION['session_msg']="<p class='alert alert-success'>Create new data successfully</p>";
+    $_SESSION['session_msg']="<p class='alert alert-success'> update successfully</p>";
     header('Location:index.php');
 }
 
@@ -43,9 +46,11 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         <h2>Product list</h2>
     <div class="card-body">
         <form action="" method="post">
-            <input class="form-control" type="text" name="title" placeholder="enter title" required>
-            <textarea class="form-control mt-3" name="description" cols="30" rows="10" placeholder="enter description"></textarea>
-            <button class="btn btn-sm btn-success " type="submit">+ Create</button>
+            <input class="form-control" type="text" name="title" value=" <?= $post['title'] ?>" placeholder="enter title" required>
+            <textarea class="form-control mt-3" name="description" cols="30" rows="10" placeholder="enter description">
+                <?= $post['description'] ?>
+            </textarea>
+            <button class="btn btn-sm btn-success " type="submit">+ Update</button>
         </form>
     </div>
     </div>
