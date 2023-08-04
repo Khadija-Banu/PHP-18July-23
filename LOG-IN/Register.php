@@ -8,16 +8,16 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
   $email=$_POST['email'];
   $phone=$_POST['phone'];
  
-//  $sql= "INSERT INTO users (name, birth, email, phone) 
-//   VALUES ('KHADIJA BANU', '53', 'k@gmail.com', '4563453')";
-
-   $sql = "insert into users(name,birth,email,phone) values('$name','$birth', '$email', '$phone')";
-  $stmt = $pdo->prepare($sql); 
-var_dump($stmt);
-        $stmt->execute();
+    $sql = "insert into users(name,birth,email,phone) values('$name','$birth', '$email', '$phone')";
+    $stmt = $pdo->prepare($sql); 
+    $stmt->execute();
     
+    //session start
+    session_start();
+    $_SESSION['is_login']=true;
+    $_SESSION['user_name']=$name;
 
-      header('Location: Log-in.php');
+    header('Location: index.php');
 }
 
 
